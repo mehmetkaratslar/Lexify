@@ -1,0 +1,233 @@
+﻿<UserControl x:Class="Lexify.Views.AddEditWordView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lexify.Views"
+             mc:Ignorable="d" Height="722" Width="875">
+
+    <Grid Background="#ECEFF4" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Başlık -->
+        <TextBlock Grid.Row="0" 
+                   Text="Yeni Kelime Ekle" 
+                   FontSize="24" 
+                   FontWeight="Bold" 
+                   Margin="0,0,0,20"/>
+
+        <!-- Form Alanları -->
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="0,0,10,0">
+                <!-- Kelime Metni -->
+                <TextBlock Text="Kelime" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,5"/>
+                <TextBox Text="{Binding CurrentWord.WordText}" 
+                         Padding="10" 
+                         Margin="0,0,0,15"/>
+
+                <!-- Dil Seçimi -->
+                <TextBlock Text="Dil" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,5"/>
+                <ComboBox Text="{Binding CurrentWord.Language}" 
+                          Padding="10" 
+                          Margin="0,0,0,15">
+                    <ComboBoxItem Content="Türkçe"/>
+                    <ComboBoxItem Content="English"/>
+                    <ComboBoxItem Content="Deutsch"/>
+                    <ComboBoxItem Content="Français"/>
+                    <ComboBoxItem Content="Español"/>
+                </ComboBox>
+
+                <!-- Kelime Türü -->
+                <TextBlock Text="Tür" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,5"/>
+                <ComboBox Text="{Binding CurrentWord.WordType}" 
+                          Padding="10" 
+                          Margin="0,0,0,15">
+                    <ComboBoxItem Content="İsim"/>
+                    <ComboBoxItem Content="Fiil"/>
+                    <ComboBoxItem Content="Sıfat"/>
+                    <ComboBoxItem Content="Zarf"/>
+                    <ComboBoxItem Content="Edat"/>
+                    <ComboBoxItem Content="Bağlaç"/>
+                    <ComboBoxItem Content="Adjective"/>
+                    <ComboBoxItem Content="Noun"/>
+                    <ComboBoxItem Content="Verb"/>
+                    <ComboBoxItem Content="Adverb"/>
+                </ComboBox>
+
+                <!-- Renk Seçimi -->
+                <TextBlock Text="Renk" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,5"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                    <Rectangle Width="30" 
+                               Height="30" 
+                               Fill="{Binding CurrentWord.ColorCode}" 
+                               Stroke="#D8DEE9" 
+                               StrokeThickness="1" 
+                               Margin="0,0,10,0"/>
+                    <ComboBox Width="150">
+                        <ComboBoxItem Content="Mavi" Tag="#5E81AC"/>
+                        <ComboBoxItem Content="Yeşil" Tag="#A3BE8C"/>
+                        <ComboBoxItem Content="Sarı" Tag="#EBCB8B"/>
+                        <ComboBoxItem Content="Mor" Tag="#B48EAD"/>
+                        <ComboBoxItem Content="Kırmızı" Tag="#BF616A"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <!-- Öğrenme Durumu -->
+                <TextBlock Text="Öğrenme Durumu" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,5"/>
+                <ComboBox Text="{Binding CurrentWord.LearningStatus}" 
+                          Padding="10" 
+                          Margin="0,0,0,15">
+                    <ComboBoxItem Content="Yeni"/>
+                    <ComboBoxItem Content="Öğreniliyor"/>
+                    <ComboBoxItem Content="Öğrenildi"/>
+                </ComboBox>
+
+                <!-- Tanımlar -->
+                <TextBlock Text="Tanımlar" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,5"/>
+
+                <Border Background="White" 
+                        BorderBrush="#D8DEE9" 
+                        BorderThickness="1" 
+                        Padding="10" 
+                        Margin="0,0,0,5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0" 
+                                 Text="Tanım giriniz..." 
+                                 BorderThickness="0"/>
+
+                        <Button Grid.Column="1" 
+                                Content="Ekle" 
+                                Padding="10,5" 
+                                Background="#5E81AC" 
+                                Foreground="White" 
+                                BorderThickness="0"/>
+                    </Grid>
+                </Border>
+
+                <ItemsControl ItemsSource="{Binding Definitions}" 
+                              Margin="0,0,0,15">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#F8F9FC" 
+                                    Margin="0,2" 
+                                    Padding="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" 
+                                               Text="{Binding DefinitionText}" 
+                                               TextWrapping="Wrap"/>
+
+                                    <Button Grid.Column="1" 
+                                            Content="Sil" 
+                                            Foreground="#BF616A" 
+                                            Background="Transparent" 
+                                            BorderThickness="0"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Örnek Cümleler -->
+                <TextBlock Text="Örnek Cümleler" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,5"/>
+
+                <Border Background="White" 
+                        BorderBrush="#D8DEE9" 
+                        BorderThickness="1" 
+                        Padding="10" 
+                        Margin="0,0,0,5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0" 
+                                 Text="Örnek cümle giriniz..." 
+                                 BorderThickness="0"/>
+
+                        <Button Grid.Column="1" 
+                                Content="Ekle" 
+                                Padding="10,5" 
+                                Background="#5E81AC" 
+                                Foreground="White" 
+                                BorderThickness="0"/>
+                    </Grid>
+                </Border>
+
+                <ItemsControl ItemsSource="{Binding Examples}" 
+                              Margin="0,0,0,15">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="#F8F9FC" 
+                                    Margin="0,2" 
+                                    Padding="10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0" 
+                                               Text="{Binding ExampleText}" 
+                                               TextWrapping="Wrap"/>
+
+                                    <Button Grid.Column="1" 
+                                            Content="Sil" 
+                                            Foreground="#BF616A" 
+                                            Background="Transparent" 
+                                            BorderThickness="0"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Kaydet Butonu -->
+        <StackPanel Grid.Row="2" 
+                    Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="0,10,0,0">
+            <Button Content="İptal" 
+                    Padding="20,10" 
+                    Margin="0,0,10,0" 
+                    Background="#E5E9F0" 
+                    BorderThickness="0"/>
+
+            <Button Content="Kaydet" 
+                    Padding="20,10" 
+                    Background="#5E81AC" 
+                    Foreground="White" 
+                    BorderThickness="0"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,246 @@
+﻿<UserControl x:Class="Lexify.Views.StatisticsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Lexify.Views"
+             mc:Ignorable="d" Height="725" Width="882">
+
+    <Grid Background="#ECEFF4" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Başlık -->
+        <TextBlock Grid.Row="0" 
+                   Text="İstatistikler" 
+                   FontSize="24" 
+                   FontWeight="Bold" 
+                   Margin="0,0,0,20"/>
+
+        <!-- İstatistik Kartları -->
+        <Grid Grid.Row="1" Margin="0,0,0,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Toplam Kelimeler -->
+            <Border Grid.Column="0" 
+                    Background="#5E81AC" 
+                    CornerRadius="8" 
+                    Margin="5" 
+                    Padding="15">
+                <StackPanel>
+                    <TextBlock Text="Toplam Kelimeler" 
+                               Foreground="White" 
+                               FontSize="16"/>
+                    <TextBlock Text="42" 
+                               Foreground="White" 
+                               FontSize="28" 
+                               FontWeight="Bold" 
+                               Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Öğrenilen Kelimeler -->
+            <Border Grid.Column="1" 
+                    Background="#A3BE8C" 
+                    CornerRadius="8" 
+                    Margin="5" 
+                    Padding="15">
+                <StackPanel>
+                    <TextBlock Text="Öğrenilen" 
+                               Foreground="White" 
+                               FontSize="16"/>
+                    <TextBlock Text="18" 
+                               Foreground="White" 
+                               FontSize="28" 
+                               FontWeight="Bold" 
+                               Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Öğreniliyor Kelimeler -->
+            <Border Grid.Column="2" 
+                    Background="#EBCB8B" 
+                    CornerRadius="8" 
+                    Margin="5" 
+                    Padding="15">
+                <StackPanel>
+                    <TextBlock Text="Öğreniliyor" 
+                               Foreground="White" 
+                               FontSize="16"/>
+                    <TextBlock Text="15" 
+                               Foreground="White" 
+                               FontSize="28" 
+                               FontWeight="Bold" 
+                               Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Yeni Kelimeler -->
+            <Border Grid.Column="3" 
+                    Background="#B48EAD" 
+                    CornerRadius="8" 
+                    Margin="5" 
+                    Padding="15">
+                <StackPanel>
+                    <TextBlock Text="Yeni" 
+                               Foreground="White" 
+                               FontSize="16"/>
+                    <TextBlock Text="9" 
+                               Foreground="White" 
+                               FontSize="28" 
+                               FontWeight="Bold" 
+                               Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <!-- Grafikler -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Öğrenme İlerlemesi Grafiği -->
+            <Border Grid.Row="0" 
+                    Grid.Column="0" 
+                    Background="White" 
+                    CornerRadius="8" 
+                    Margin="5" 
+                    Padding="15"
+                    BorderBrush="#E5E9F0"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" 
+                               Text="Öğrenme İlerlemesi" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,10"/>
+
+                    <!-- Burada gerçek grafik bileşeni olacak -->
+                    <Border Grid.Row="1" 
+                            Background="#F8F9FC">
+                        <TextBlock Text="Grafik Verisi Yükleniyor..." 
+                                   VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center" 
+                                   Foreground="#4C566A"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- Dillere Göre Dağılım -->
+            <Border Grid.Row="0" 
+                    Grid.Column="1" 
+                    Background="White" 
+                    CornerRadius="8" 
+                    Margin="5" 
+                    Padding="15"
+                    BorderBrush="#E5E9F0"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" 
+                               Text="Dillere Göre Dağılım" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,10"/>
+
+                    <!-- Burada gerçek grafik bileşeni olacak -->
+                    <Border Grid.Row="1" 
+                            Background="#F8F9FC">
+                        <TextBlock Text="Grafik Verisi Yükleniyor..." 
+                                   VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center" 
+                                   Foreground="#4C566A"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- Kelime Türlerine Göre Dağılım -->
+            <Border Grid.Row="1" 
+                    Grid.Column="0" 
+                    Background="White" 
+                    CornerRadius="8" 
+                    Margin="5" 
+                    Padding="15"
+                    BorderBrush="#E5E9F0"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" 
+                               Text="Kelime Türlerine Göre Dağılım" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,10"/>
+
+                    <!-- Burada gerçek grafik bileşeni olacak -->
+                    <Border Grid.Row="1" 
+                            Background="#F8F9FC">
+                        <TextBlock Text="Grafik Verisi Yükleniyor..." 
+                                   VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center" 
+                                   Foreground="#4C566A"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- Aylık Eklenen Kelimeler -->
+            <Border Grid.Row="1" 
+                    Grid.Column="1" 
+                    Background="White" 
+                    CornerRadius="8" 
+                    Margin="5" 
+                    Padding="15"
+                    BorderBrush="#E5E9F0"
+                    BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" 
+                               Text="Aylık Eklenen Kelimeler" 
+                               FontSize="16" 
+                               FontWeight="Bold" 
+                               Margin="0,0,0,10"/>
+
+                    <!-- Burada gerçek grafik bileşeni olacak -->
+                    <Border Grid.Row="1" 
+                            Background="#F8F9FC">
+                        <TextBlock Text="Grafik Verisi Yükleniyor..." 
+                                   VerticalAlignment="Center" 
+                                   HorizontalAlignment="Center" 
+                                   Foreground="#4C566A"/>
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

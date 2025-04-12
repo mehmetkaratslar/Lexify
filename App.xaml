@@ -1,0 +1,33 @@
+﻿<Application x:Class="Lexify.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Lexify">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Genel Stillemeler -->
+                <ResourceDictionary>
+                    <!-- Buton Stilleri -->
+                    <Style TargetType="Button">
+                        <Setter Property="Padding" Value="10,5"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                    </Style>
+
+                    <!-- TextBox Stilleri -->
+                    <Style TargetType="TextBox">
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="#D8DEE9"/>
+                    </Style>
+
+                    <!-- ComboBox Stilleri -->
+                    <Style TargetType="ComboBox">
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="BorderBrush" Value="#D8DEE9"/>
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
