@@ -1,0 +1,10 @@
+﻿<UserControl x:Class="Lexify.Views.PronunciationTestView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Background="#ECEFF4" Margin="20">
+        <TextBlock Text="🔊 Sesletimden Kelime Testi"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="#2E3440"/>
+    </Grid>
+</UserControl>

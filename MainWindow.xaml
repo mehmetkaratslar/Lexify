@@ -3,13 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Lexify"
         xmlns:viewmodels="clr-namespace:Lexify.ViewModels"
         xmlns:views="clr-namespace:Lexify.Views"
+        xmlns:helpers="clr-namespace:Lexify.Helpers"
         mc:Ignorable="d"
         Title="Lexify - Kelime Öğrenme Uygulaması" Height="650" Width="1000">
 
     <Window.Resources>
+        <!-- ViewModel - View eşleşmeleri -->
         <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">
             <views:DashboardView />
         </DataTemplate>
@@ -32,87 +33,47 @@
             <views:SettingsView />
         </DataTemplate>
 
-        <!-- Value Converters -->
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <!-- Test ekranları -->
+        <DataTemplate DataType="{x:Type viewmodels:TestSessionViewModel}">
+            <views:DefinitionToWordTestView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:MixedTestViewModel}">
+            <views:MixedTestView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:WordToDefinitionTestViewModel}">
+            <views:WordToDefinitionTestView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodels:PronunciationTestViewModel}">
+            <views:PronunciationTestView />
+        </DataTemplate>
 
-        <!-- Null değeri için görünürlük dönüştürücüsü -->
-        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <!-- Converters -->
+        <helpers:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <helpers:AnswerToBrushConverter x:Key="AnswerToBrushConverter"/>
     </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Sol navigasyon menüsü -->
+        <!-- Menü -->
         <Border Background="#2E3440" Grid.Column="0">
             <StackPanel>
-                <TextBlock Text="Lexify" 
-                           Foreground="White" 
-                           FontSize="24" 
-                           FontWeight="Bold" 
-                           Margin="10,20,10,5" 
-                           TextAlignment="Center"/>
+                <TextBlock Text="Lexify" FontSize="24" Foreground="White" Margin="10,20,10,5" FontWeight="Bold" TextAlignment="Center"/>
+                <TextBlock Text="Kelime Öğrenme Uygulaması" FontSize="12" Foreground="#88FFFFFF" TextAlignment="Center" Margin="10,0,10,30"/>
 
-                <TextBlock Text="Kelime Öğrenme Uygulaması" 
-                           Foreground="#88FFFFFF" 
-                           FontSize="12" 
-                           Margin="10,0,10,30" 
-                           TextWrapping="Wrap" 
-                           TextAlignment="Center"/>
-
-                <Button Content="Ana Sayfa" 
-                        Height="45" 
-                        Margin="10,5" 
-                        Command="{Binding NavigateToDashboardCommand}" 
-                        Background="#3B4252" 
-                        Foreground="White" 
-                        BorderThickness="0"/>
-
-                <Button Content="Kelimelerim" 
-                        Height="45" 
-                        Margin="10,5" 
-                        Command="{Binding NavigateToWordsCommand}" 
-                        Background="#3B4252" 
-                        Foreground="White" 
-                        BorderThickness="0"/>
-
-                <Button Content="Yeni Kelime Ekle" 
-                        Height="45" 
-                        Margin="10,5" 
-                        Command="{Binding NavigateToAddWordCommand}" 
-                        Background="#3B4252" 
-                        Foreground="White" 
-                        BorderThickness="0"/>
-
-                <Button Content="Testler" 
-                        Height="45" 
-                        Margin="10,5" 
-                        Command="{Binding NavigateToTestsCommand}" 
-                        Background="#3B4252" 
-                        Foreground="White" 
-                        BorderThickness="0"/>
-
-                <Button Content="İstatistikler" 
-                        Height="45" 
-                        Margin="10,5" 
-                        Command="{Binding NavigateToStatisticsCommand}" 
-                        Background="#3B4252" 
-                        Foreground="White" 
-                        BorderThickness="0"/>
-
-                <Button Content="Ayarlar" 
-                        Height="45" 
-                        Margin="10,5" 
-                        Command="{Binding NavigateToSettingsCommand}" 
-                        Background="#3B4252" 
-                        Foreground="White" 
-                        BorderThickness="0"/>
+                <Button Content="Ana Sayfa" Command="{Binding NavigateToDashboardCommand}" Style="{StaticResource {x:Type Button}}" />
+                <Button Content="Kelimelerim" Command="{Binding NavigateToWordsCommand}" Style="{StaticResource {x:Type Button}}" />
+                <Button Content="Yeni Kelime Ekle" Command="{Binding NavigateToAddWordCommand}" Style="{StaticResource {x:Type Button}}" />
+                <Button Content="Testler" Command="{Binding NavigateToTestsCommand}" Style="{StaticResource {x:Type Button}}" />
+                <Button Content="İstatistikler" Command="{Binding NavigateToStatisticsCommand}" Style="{StaticResource {x:Type Button}}" />
+                <Button Content="Ayarlar" Command="{Binding NavigateToSettingsCommand}" Style="{StaticResource {x:Type Button}}" />
             </StackPanel>
         </Border>
 
-        <!-- Sağ tarafta dinamik içerik -->
+        <!-- İçerik -->
         <ContentControl Grid.Column="1" Content="{Binding CurrentView}" />
     </Grid>
 </Window>

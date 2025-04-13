@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Lexify.Services;
+using Lexify.ViewModels;
 
 namespace Lexify
 {
@@ -12,8 +13,15 @@ namespace Lexify
             // Veritabanı servisini başlat
             var dbService = new DatabaseService();
 
+            // MainViewModel oluştur
+            var mainViewModel = new MainViewModel();
+
             // Ana pencereyi başlat
-            MainWindow mainWindow = new MainWindow();
+            var mainWindow = new MainWindow
+            {
+                DataContext = mainViewModel
+            };
+
             mainWindow.Show();
         }
     }

@@ -1,8 +1,10 @@
-﻿using Lexify.Models;
+﻿using Lexify.Helpers;
+using Lexify.Models;
 using Lexify.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -11,172 +13,122 @@ namespace Lexify.ViewModels
     public class AddEditWordViewModel : ObservableObject
     {
         private readonly DatabaseService _databaseService;
-        private Word _currentWord;
-        private string _newDefinitionText;
-        private string _newExampleText;
 
         public AddEditWordViewModel(DatabaseService databaseService)
         {
             _databaseService = databaseService;
 
-            // Yeni kelime oluştur
             CurrentWord = new Word
             {
                 DateAdded = DateTime.Now,
-                LearningStatus = "Yeni",
-                ColorCode = "#5E81AC"
+                Definitions = new List<Definition>(),
+                Examples = new List<Example>(),
+
+
+                ColorCode = "#5E81AC", // varsayılan mavi renk
             };
 
-            // Tanımlar ve örnekler için koleksiyonları başlat
             Definitions = new ObservableCollection<Definition>();
             Examples = new ObservableCollection<Example>();
 
-            // Komutları başlat
-            AddDefinitionCommand = new RelayCommand(AddDefinition);
-            RemoveDefinitionCommand = new RelayCommand(RemoveDefinition);
-            AddExampleCommand = new RelayCommand(AddExample);
-            RemoveExampleCommand = new RelayCommand(RemoveExample);
-            SaveCommand = new RelayCommand(async param => await SaveWord());
-            CancelCommand = new RelayCommand(Cancel);
+            AddDefinitionCommand = new RelayCommand(_ => AddDefinition(), _ => !string.IsNullOrWhiteSpace(NewDefinitionText));
+            RemoveDefinitionCommand = new RelayCommand(d => RemoveDefinition(d as Definition));
+
+            AddExampleCommand = new RelayCommand(_ => AddExample(), _ => !string.IsNullOrWhiteSpace(NewExampleText));
+            RemoveExampleCommand = new RelayCommand(e => RemoveExample(e as Example));
+
+            SaveCommand = new RelayCommand(_ => Save());
+            CancelCommand = new RelayCommand(_ => Cancel());
         }
 
+        public event EventHandler NavigationCompleted;
+
+        public async Task LoadWordAsync(int wordId)
+        {
+            var word = await _databaseService.GetWordByIdAsync(wordId);
+            if (word != null)
+            {
+                CurrentWord = word;
+                Definitions = new ObservableCollection<Definition>(word.Definitions);
+                Examples = new ObservableCollection<Example>(word.Examples);
+            }
+        }
+
+        private Word _currentWord;
         public Word CurrentWord
         {
             get => _currentWord;
             set => SetProperty(ref _currentWord, value);
         }
 
+
         public ObservableCollection<Definition> Definitions { get; set; }
+        public string NewDefinitionText { get; set; }
 
-        public ObservableCollection<Example> Examples { get; set; }
-
-        public string NewDefinitionText
-        {
-            get => _newDefinitionText;
-            set => SetProperty(ref _newDefinitionText, value);
-        }
-
-        public string NewExampleText
-        {
-            get => _newExampleText;
-            set => SetProperty(ref _newExampleText, value);
-        }
-
-        // Komutlar
         public ICommand AddDefinitionCommand { get; }
         public ICommand RemoveDefinitionCommand { get; }
+
+        private void AddDefinition()
+        {
+            var def = new Definition { DefinitionText = NewDefinitionText };
+            Definitions.Add(def);
+            NewDefinitionText = string.Empty;
+            OnPropertyChanged(nameof(NewDefinitionText));
+        }
+
+        private void RemoveDefinition(Definition def)
+        {
+            if (def != null)
+                Definitions.Remove(def);
+        }
+
+        public ObservableCollection<Example> Examples { get; set; }
+        public string NewExampleText { get; set; }
+
         public ICommand AddExampleCommand { get; }
         public ICommand RemoveExampleCommand { get; }
-        public ICommand SaveCommand { get; }
-        public ICommand CancelCommand { get; }
 
-        // Navigasyon için event
-        public event EventHandler NavigationCompleted;
-
-        // Var olan kelimeyi düzenlemek için (edit modu)
-        public async Task LoadWord(int wordId)
+        private void AddExample()
         {
-            var word = await _databaseService.GetWordByIdAsync(wordId);
-            if (word != null)
-            {
-                CurrentWord = word;
-
-                // Tanımları ve örnekleri yükle
-                Definitions.Clear();
-                if (word.Definitions != null)
-                {
-                    foreach (var definition in word.Definitions)
-                    {
-                        Definitions.Add(definition);
-                    }
-                }
-
-                Examples.Clear();
-                if (word.Examples != null)
-                {
-                    foreach (var example in word.Examples)
-                    {
-                        Examples.Add(example);
-                    }
-                }
-            }
-        }
-
-        private void AddDefinition(object parameter)
-        {
-            if (string.IsNullOrWhiteSpace(NewDefinitionText))
-                return;
-
-            Definitions.Add(new Definition
-            {
-                DefinitionText = NewDefinitionText
-            });
-
-            NewDefinitionText = string.Empty;
-        }
-
-        private void RemoveDefinition(object parameter)
-        {
-            if (parameter is Definition definition)
-            {
-                Definitions.Remove(definition);
-            }
-        }
-
-        private void AddExample(object parameter)
-        {
-            if (string.IsNullOrWhiteSpace(NewExampleText))
-                return;
-
-            Examples.Add(new Example
-            {
-                ExampleText = NewExampleText
-            });
-
+            var ex = new Example { ExampleText = NewExampleText };
+            Examples.Add(ex);
             NewExampleText = string.Empty;
+            OnPropertyChanged(nameof(NewExampleText));
         }
 
-        private void RemoveExample(object parameter)
+        private void RemoveExample(Example ex)
         {
-            if (parameter is Example example)
-            {
-                Examples.Remove(example);
-            }
+            if (ex != null)
+                Examples.Remove(ex);
         }
 
-        private async Task SaveWord()
+        public ICommand SaveCommand { get; }
+        private async void Save()
         {
-            try
-            {
-                // Tanımları ve örnekleri kelimeye ata
-                CurrentWord.Definitions = new List<Definition>(Definitions);
-                CurrentWord.Examples = new List<Example>(Examples);
-
-                // Yeni kelime mi yoksa düzenleme mi kontrolü
-                if (CurrentWord.WordID == 0)
-                {
-                    // Yeni kelime
-                    await _databaseService.AddWordAsync(CurrentWord);
-                }
-                else
-                {
-                    // Var olan kelimeyi güncelle
-                    await _databaseService.UpdateWordAsync(CurrentWord);
-                }
-
-                // Navigasyon event'ini tetikle
-                NavigationCompleted?.Invoke(this, EventArgs.Empty);
-            }
-            catch (Exception ex)
-            {
-                // Hata işleme
-                System.Diagnostics.Debug.WriteLine($"Kelime kaydedilirken hata: {ex.Message}");
-            }
+            await SaveAsync();
         }
 
-        private void Cancel(object parameter)
+        public async Task SaveAsync()
         {
-            // İptal et ve navigasyon event'ini tetikle
+            CurrentWord.Definitions = Definitions.ToList();
+            CurrentWord.Examples = Examples.ToList();
+
+            if (CurrentWord.WordID == 0)
+                await _databaseService.AddWordAsync(CurrentWord);
+            else
+                await _databaseService.UpdateWordAsync(CurrentWord);
+
+            OnNavigationCompleted();
+        }
+
+        public ICommand CancelCommand { get; }
+        private void Cancel()
+        {
+            OnNavigationCompleted();
+        }
+
+        protected void OnNavigationCompleted()
+        {
             NavigationCompleted?.Invoke(this, EventArgs.Empty);
         }
     }

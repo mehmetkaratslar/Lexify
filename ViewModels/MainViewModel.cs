@@ -1,11 +1,8 @@
-﻿using Lexify.Services;
+﻿using Lexify.Models;
+using Lexify.Services;
+using Lexify.Helpers;
 using System.Windows.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Lexify.Models;
 
 namespace Lexify.ViewModels
 {
@@ -18,17 +15,24 @@ namespace Lexify.ViewModels
         {
             _databaseService = new DatabaseService();
 
-            // İlk görünümü DashboardViewModel olarak ayarla
+            // İlk görünüm: Dashboard
             CurrentView = new DashboardViewModel(_databaseService);
 
             // Komutları oluştur
-            NavigateToDashboardCommand = new RelayCommand(param => NavigateToDashboard());
-            NavigateToWordsCommand = new RelayCommand(param => NavigateToWords());
-            NavigateToAddWordCommand = new RelayCommand(param => NavigateToAddWord());
-            NavigateToTestsCommand = new RelayCommand(param => NavigateToTests());
-            NavigateToStatisticsCommand = new RelayCommand(param => NavigateToStatistics());
-            NavigateToSettingsCommand = new RelayCommand(param => NavigateToSettings());
+            NavigateToDashboardCommand = new RelayCommand(_ => NavigateToDashboard());
+            NavigateToWordsCommand = new RelayCommand(_ => NavigateToWords());
+            NavigateToAddWordCommand = new RelayCommand(_ => NavigateToAddWord());
+            NavigateToTestsCommand = new RelayCommand(_ => NavigateToTests());
+            NavigateToStatisticsCommand = new RelayCommand(_ => NavigateToStatistics());
+            NavigateToSettingsCommand = new RelayCommand(_ => NavigateToSettings());
+
+            // Test ekranı komutları
+            NavigateToMixedTestCommand = new RelayCommand(_ => NavigateToMixedTest());
+            NavigateToDefinitionFromWordCommand = new RelayCommand(_ => NavigateToDefinitionFromWord());
+            NavigateToDefinitionToWordTestCommand = new RelayCommand(_ => NavigateToDefinitionToWordTest());
+            NavigateToPronunciationTestCommand = new RelayCommand(_ => NavigateToPronunciationTest());
         }
+
 
         public object CurrentView
         {
@@ -44,70 +48,88 @@ namespace Lexify.ViewModels
         public ICommand NavigateToStatisticsCommand { get; }
         public ICommand NavigateToSettingsCommand { get; }
 
-        // Navigasyon metodları
-        private void NavigateToDashboard()
+        // Test komutları
+        public ICommand NavigateToMixedTestCommand { get; }
+        public ICommand NavigateToDefinitionFromWordCommand { get; }
+        public ICommand NavigateToDefinitionToWordTestCommand { get; }
+        public ICommand NavigateToPronunciationTestCommand { get; }
+
+        // Dashboard'a yönlendir
+        public void NavigateToDashboard()
         {
             CurrentView = new DashboardViewModel(_databaseService);
         }
 
-        private void NavigateToWords()
+        // Tüm kelimeleri listeleyen sayfaya yönlendir
+        public void NavigateToWords()
         {
-            // MainViewModel referansını geçirerek WordsViewModel oluştur
             CurrentView = new WordsViewModel(_databaseService, this);
         }
 
-        private void NavigateToAddWord()
+        // Yeni kelime ekleme sayfasına yönlendir
+        public void NavigateToAddWord()
         {
             var addEditViewModel = new AddEditWordViewModel(_databaseService);
-
-            // Kelime kaydedildiğinde veya iptal edildiğinde ana sayfaya dön
-            addEditViewModel.NavigationCompleted += (sender, e) => {
-                NavigateToDashboard();
-            };
-
+            addEditViewModel.NavigationCompleted += (sender, e) => NavigateToDashboard();
             CurrentView = addEditViewModel;
         }
 
-        // Var olan kelimeyi düzenlemek için public metot
-        public void NavigateToEditWord(Word word)
+        // Kelime düzenleme sayfasına yönlendir
+        public async void NavigateToEditWord(Word word)
         {
             if (word == null) return;
 
             var addEditViewModel = new AddEditWordViewModel(_databaseService);
-
-            // Var olan kelimeyi yükle
-            addEditViewModel.LoadWord(word.WordID);
-
-            // Kelime kaydedildiğinde veya iptal edildiğinde ana sayfaya dön
-            addEditViewModel.NavigationCompleted += (sender, e) => {
-                NavigateToDashboard();
-            };
-
+            await addEditViewModel.LoadWordAsync(word.WordID);
+            addEditViewModel.NavigationCompleted += (sender, e) => NavigateToDashboard();
             CurrentView = addEditViewModel;
         }
 
-        // Kelime detaylarını görüntülemek için public metot
-        public void NavigateToWordDetail(Word word)
+        // Kelime detay sayfasına yönlendir
+        public async void NavigateToWordDetail(Word word)
         {
             if (word == null) return;
 
             var wordDetailViewModel = new WordDetailViewModel(_databaseService);
-            wordDetailViewModel.LoadWord(word.WordID);
-
+            await wordDetailViewModel.LoadWordAsync(word.WordID);
             CurrentView = wordDetailViewModel;
         }
 
-        private void NavigateToTests()
+        // Test menüsüne yönlendir
+        public void NavigateToTests()
         {
-            CurrentView = new TestsViewModel(_databaseService);
+            CurrentView = new TestsViewModel(_databaseService, this);
         }
 
-        private void NavigateToStatistics()
+        // Test ekranlarına yönlendirmeler
+        public void NavigateToMixedTest()
+        {
+            CurrentView = new MixedTestViewModel(_databaseService);
+        }
+
+        public void NavigateToDefinitionFromWord()
+        {
+            CurrentView = new WordToDefinitionTestViewModel(_databaseService);
+        }
+
+        public void NavigateToDefinitionToWordTest()
+        {
+            CurrentView = new TestSessionViewModel(_databaseService); // veya DefinitionToWordTestViewModel
+        }
+
+        public void NavigateToPronunciationTest()
+        {
+            CurrentView = new PronunciationTestViewModel(_databaseService);
+        }
+
+        // İstatistik sayfasına yönlendir
+        public void NavigateToStatistics()
         {
             CurrentView = new StatisticsViewModel(_databaseService);
         }
 
-        private void NavigateToSettings()
+        // Ayarlar sayfasına yönlendir
+        public void NavigateToSettings()
         {
             CurrentView = new SettingsViewModel();
         }
