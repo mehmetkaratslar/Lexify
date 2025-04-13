@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lexify.Views"
-             mc:Ignorable="d" Height="802" Width="869">
+             mc:Ignorable="d">
 
-    <Grid Background="#ECEFF4" Margin="10">
+    <Grid Background="#ECEFF4" Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -20,36 +20,41 @@
                    Margin="0,0,0,20"/>
 
         <!-- Ayarlar Listesi -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" 
+                      VerticalScrollBarVisibility="Auto" 
+                      HorizontalScrollBarVisibility="Disabled">
             <StackPanel>
                 <!-- Uygulama Ayarları -->
                 <Border Background="White" 
                         CornerRadius="8" 
                         Margin="0,0,0,20" 
-                        Padding="20"
+                        Padding="25"
                         BorderBrush="#E5E9F0"
                         BorderThickness="1">
                     <StackPanel>
                         <TextBlock Text="Uygulama Ayarları" 
-                                   FontSize="18" 
+                                   FontSize="20" 
                                    FontWeight="Bold" 
-                                   Margin="0,0,0,15"/>
+                                   Margin="0,0,0,20"/>
 
                         <!-- Tema Seçimi -->
-                        <Grid Margin="0,0,0,10">
+                        <Grid Margin="0,0,0,15">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="180"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0" 
                                        Text="Tema" 
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center"
+                                       FontSize="15"/>
 
                             <ComboBox Grid.Column="1" 
-                                      Width="200" 
+                                      MinWidth="220" 
+                                      MaxWidth="350" 
                                       HorizontalAlignment="Left" 
-                                      Padding="10,5">
+                                      Padding="12,8"
+                                      FontSize="14">
                                 <ComboBoxItem Content="Açık Tema" IsSelected="True"/>
                                 <ComboBoxItem Content="Koyu Tema"/>
                                 <ComboBoxItem Content="Sistem Teması"/>
@@ -57,40 +62,46 @@
                         </Grid>
 
                         <!-- Dil Seçimi -->
-                        <Grid Margin="0,0,0,10">
+                        <Grid Margin="0,0,0,15">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="180"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0" 
                                        Text="Arayüz Dili" 
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center"
+                                       FontSize="15"/>
 
                             <ComboBox Grid.Column="1" 
-                                      Width="200" 
+                                      MinWidth="220" 
+                                      MaxWidth="350" 
                                       HorizontalAlignment="Left" 
-                                      Padding="10,5">
+                                      Padding="12,8"
+                                      FontSize="14">
                                 <ComboBoxItem Content="Türkçe" IsSelected="True"/>
                                 <ComboBoxItem Content="English"/>
                             </ComboBox>
                         </Grid>
 
                         <!-- Yazı Tipi Boyutu -->
-                        <Grid Margin="0,0,0,10">
+                        <Grid Margin="0,0,0,15">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="180"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
                             <TextBlock Grid.Column="0" 
                                        Text="Yazı Tipi Boyutu" 
-                                       VerticalAlignment="Center"/>
+                                       VerticalAlignment="Center"
+                                       FontSize="15"/>
 
                             <ComboBox Grid.Column="1" 
-                                      Width="200" 
+                                      MinWidth="220" 
+                                      MaxWidth="350" 
                                       HorizontalAlignment="Left" 
-                                      Padding="10,5">
+                                      Padding="12,8"
+                                      FontSize="14">
                                 <ComboBoxItem Content="Küçük"/>
                                 <ComboBoxItem Content="Orta" IsSelected="True"/>
                                 <ComboBoxItem Content="Büyük"/>
@@ -103,59 +114,65 @@
                 <Border Background="White" 
                         CornerRadius="8" 
                         Margin="0,0,0,20" 
-                        Padding="20"
+                        Padding="25"
                         BorderBrush="#E5E9F0"
                         BorderThickness="1">
                     <StackPanel>
                         <TextBlock Text="Veri Yönetimi" 
-                                   FontSize="18" 
+                                   FontSize="20" 
                                    FontWeight="Bold" 
-                                   Margin="0,0,0,15"/>
+                                   Margin="0,0,0,20"/>
 
                         <!-- Veri Yedekleme -->
-                        <StackPanel Margin="0,0,0,15">
+                        <StackPanel Margin="0,0,0,25">
                             <TextBlock Text="Veri Yedekleme ve Geri Yükleme" 
+                                       FontSize="16"
                                        FontWeight="SemiBold" 
-                                       Margin="0,0,0,5"/>
+                                       Margin="0,0,0,10"/>
 
                             <TextBlock Text="Kelimelerinizi, tanımlarınızı ve diğer verilerinizi yedekleyebilir ve başka bir bilgisayara aktarabilirsiniz." 
                                        TextWrapping="Wrap" 
                                        Foreground="#4C566A" 
-                                       Margin="0,0,0,10"/>
+                                       Margin="0,0,0,15"/>
 
-                            <StackPanel Orientation="Horizontal">
+                            <WrapPanel Orientation="Horizontal">
                                 <Button Content="Verileri Yedekle" 
-                                        Padding="15,8" 
-                                        Margin="0,0,10,0" 
+                                        Padding="15,10" 
+                                        Margin="0,0,15,10" 
                                         Background="#5E81AC" 
                                         Foreground="White" 
-                                        BorderThickness="0"/>
+                                        BorderThickness="0"
+                                        FontSize="14"/>
 
                                 <Button Content="Yedekten Geri Yükle" 
-                                        Padding="15,8" 
+                                        Padding="15,10" 
+                                        Margin="0,0,0,10" 
                                         Background="#EBCB8B" 
                                         Foreground="White" 
-                                        BorderThickness="0"/>
-                            </StackPanel>
+                                        BorderThickness="0"
+                                        FontSize="14"/>
+                            </WrapPanel>
                         </StackPanel>
 
                         <!-- Verileri Sıfırlama -->
                         <StackPanel>
                             <TextBlock Text="Verileri Sıfırlama" 
+                                       FontSize="16"
                                        FontWeight="SemiBold" 
-                                       Margin="0,0,0,5"/>
+                                       Margin="0,0,0,10"/>
 
                             <TextBlock Text="Tüm kelime verilerinizi silip, uygulamayı ilk kurulum durumuna geri döndürebilirsiniz. Bu işlem geri alınamaz!" 
                                        TextWrapping="Wrap" 
                                        Foreground="#4C566A" 
-                                       Margin="0,0,0,10"/>
+                                       Margin="0,0,0,15"/>
 
                             <Button Content="Verileri Sıfırla" 
-                                    Padding="15,8" 
+                                    Padding="15,10" 
                                     Background="#BF616A" 
                                     Foreground="White" 
                                     BorderThickness="0" 
-                                    HorizontalAlignment="Left"/>
+                                    HorizontalAlignment="Left"
+                                    FontSize="14"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
@@ -163,27 +180,40 @@
                 <!-- Hakkında -->
                 <Border Background="White" 
                         CornerRadius="8" 
-                        Margin="0,0,0,20" 
-                        Padding="20"
+                        Margin="0,0,0,0" 
+                        Padding="25"
                         BorderBrush="#E5E9F0"
                         BorderThickness="1">
                     <StackPanel>
                         <TextBlock Text="Hakkında" 
-                                   FontSize="18" 
+                                   FontSize="20" 
                                    FontWeight="Bold" 
-                                   Margin="0,0,0,15"/>
+                                   Margin="0,0,0,20"/>
 
-                        <TextBlock Text="Lexify - Kelime Öğrenme Uygulaması" 
-                                   FontWeight="SemiBold" 
-                                   Margin="0,0,0,5"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <TextBlock Text="Lexify" 
+                                       FontWeight="Bold" 
+                                       FontSize="16"/>
+                            <TextBlock Text=" - Kelime Öğrenme Uygulaması" 
+                                       FontSize="16"/>
+                        </StackPanel>
 
                         <TextBlock Text="Sürüm 1.0.0" 
                                    Foreground="#4C566A" 
-                                   Margin="0,0,0,10"/>
+                                   Margin="0,0,0,15"
+                                   FontSize="14"/>
 
                         <TextBlock Text="Lexify, dil öğrenimini kolaylaştırmak için geliştirilmiş bir kelime öğrenme uygulamasıdır. Yeni kelimeler ekleyebilir, öğrenme durumunuzu takip edebilir ve testlerle kelime bilginizi geliştirebilirsiniz." 
                                    TextWrapping="Wrap" 
-                                   Margin="0,0,0,10"/>
+                                   Margin="0,0,0,15"
+                                   FontSize="15"
+                                   LineHeight="24"/>
+
+                        <TextBlock Text="© 2025 Lexify Team" 
+                                   Foreground="#4C566A" 
+                                   HorizontalAlignment="Right"
+                                   Margin="0,10,0,0"
+                                   FontSize="12"/>
                     </StackPanel>
                 </Border>
             </StackPanel>

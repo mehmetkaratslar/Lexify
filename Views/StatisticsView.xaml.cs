@@ -18,7 +18,7 @@ namespace Lexify.Views
     /// <summary>
     /// StatisticsView.xaml etkileşim mantığı
     /// </summary>
-    public partial class StatisticsView : Page
+    public partial class StatisticsView : UserControl
     {
         public StatisticsView()
         {

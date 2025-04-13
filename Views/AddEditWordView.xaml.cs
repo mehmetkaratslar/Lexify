@@ -15,10 +15,7 @@ using System.Windows.Shapes;
 
 namespace Lexify.Views
 {
-    /// <summary>
-    /// AddEditWordView.xaml etkileşim mantığı
-    /// </summary>
-    public partial class AddEditWordView : Page
+    public partial class AddEditWordView : UserControl
     {
         public AddEditWordView()
         {

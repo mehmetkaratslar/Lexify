@@ -1,11 +1,11 @@
 ﻿using Lexify.Services;
 using System.Windows.Input;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Lexify.Models;
 
 namespace Lexify.ViewModels
 {
@@ -52,12 +52,49 @@ namespace Lexify.ViewModels
 
         private void NavigateToWords()
         {
-            CurrentView = new WordsViewModel(_databaseService);
+            // MainViewModel referansını geçirerek WordsViewModel oluştur
+            CurrentView = new WordsViewModel(_databaseService, this);
         }
 
         private void NavigateToAddWord()
         {
-            CurrentView = new AddEditWordViewModel(_databaseService);
+            var addEditViewModel = new AddEditWordViewModel(_databaseService);
+
+            // Kelime kaydedildiğinde veya iptal edildiğinde ana sayfaya dön
+            addEditViewModel.NavigationCompleted += (sender, e) => {
+                NavigateToDashboard();
+            };
+
+            CurrentView = addEditViewModel;
+        }
+
+        // Var olan kelimeyi düzenlemek için public metot
+        public void NavigateToEditWord(Word word)
+        {
+            if (word == null) return;
+
+            var addEditViewModel = new AddEditWordViewModel(_databaseService);
+
+            // Var olan kelimeyi yükle
+            addEditViewModel.LoadWord(word.WordID);
+
+            // Kelime kaydedildiğinde veya iptal edildiğinde ana sayfaya dön
+            addEditViewModel.NavigationCompleted += (sender, e) => {
+                NavigateToDashboard();
+            };
+
+            CurrentView = addEditViewModel;
+        }
+
+        // Kelime detaylarını görüntülemek için public metot
+        public void NavigateToWordDetail(Word word)
+        {
+            if (word == null) return;
+
+            var wordDetailViewModel = new WordDetailViewModel(_databaseService);
+            wordDetailViewModel.LoadWord(word.WordID);
+
+            CurrentView = wordDetailViewModel;
         }
 
         private void NavigateToTests()

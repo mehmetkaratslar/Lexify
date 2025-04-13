@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lexify.Views"
-             mc:Ignorable="d" Height="725" Width="882">
+             mc:Ignorable="d">
 
-    <Grid Background="#ECEFF4" Margin="10">
+    <Grid Background="#ECEFF4" Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -33,12 +33,14 @@
             <Border Grid.Column="0" 
                     Background="#5E81AC" 
                     CornerRadius="8" 
-                    Margin="5" 
-                    Padding="15">
-                <StackPanel>
+                    Margin="4" 
+                    Padding="15"
+                    MinHeight="100">
+                <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="Toplam Kelimeler" 
                                Foreground="White" 
-                               FontSize="16"/>
+                               FontSize="16"
+                               TextWrapping="Wrap"/>
                     <TextBlock Text="42" 
                                Foreground="White" 
                                FontSize="28" 
@@ -51,12 +53,14 @@
             <Border Grid.Column="1" 
                     Background="#A3BE8C" 
                     CornerRadius="8" 
-                    Margin="5" 
-                    Padding="15">
-                <StackPanel>
+                    Margin="4" 
+                    Padding="15"
+                    MinHeight="100">
+                <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="Öğrenilen" 
                                Foreground="White" 
-                               FontSize="16"/>
+                               FontSize="16"
+                               TextWrapping="Wrap"/>
                     <TextBlock Text="18" 
                                Foreground="White" 
                                FontSize="28" 
@@ -69,12 +73,14 @@
             <Border Grid.Column="2" 
                     Background="#EBCB8B" 
                     CornerRadius="8" 
-                    Margin="5" 
-                    Padding="15">
-                <StackPanel>
+                    Margin="4" 
+                    Padding="15"
+                    MinHeight="100">
+                <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="Öğreniliyor" 
                                Foreground="White" 
-                               FontSize="16"/>
+                               FontSize="16"
+                               TextWrapping="Wrap"/>
                     <TextBlock Text="15" 
                                Foreground="White" 
                                FontSize="28" 
@@ -87,12 +93,14 @@
             <Border Grid.Column="3" 
                     Background="#B48EAD" 
                     CornerRadius="8" 
-                    Margin="5" 
-                    Padding="15">
-                <StackPanel>
+                    Margin="4" 
+                    Padding="15"
+                    MinHeight="100">
+                <StackPanel VerticalAlignment="Center">
                     <TextBlock Text="Yeni" 
                                Foreground="White" 
-                               FontSize="16"/>
+                               FontSize="16"
+                               TextWrapping="Wrap"/>
                     <TextBlock Text="9" 
                                Foreground="White" 
                                FontSize="28" 
@@ -119,8 +127,8 @@
                     Grid.Column="0" 
                     Background="White" 
                     CornerRadius="8" 
-                    Margin="5" 
-                    Padding="15"
+                    Margin="4,4,8,8" 
+                    Padding="20"
                     BorderBrush="#E5E9F0"
                     BorderThickness="1">
                 <Grid>
@@ -131,17 +139,28 @@
 
                     <TextBlock Grid.Row="0" 
                                Text="Öğrenme İlerlemesi" 
-                               FontSize="16" 
+                               FontSize="18" 
                                FontWeight="Bold" 
-                               Margin="0,0,0,10"/>
+                               Margin="0,0,0,15"/>
 
                     <!-- Burada gerçek grafik bileşeni olacak -->
                     <Border Grid.Row="1" 
-                            Background="#F8F9FC">
-                        <TextBlock Text="Grafik Verisi Yükleniyor..." 
-                                   VerticalAlignment="Center" 
-                                   HorizontalAlignment="Center" 
-                                   Foreground="#4C566A"/>
+                            Background="#F8F9FC"
+                            CornerRadius="6">
+                        <Grid>
+                            <TextBlock Text="Grafik Verisi Yükleniyor..." 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       Foreground="#4C566A"/>
+
+                            <!-- Sahte grafik gösterimi -->
+                            <Canvas Opacity="0.5" Margin="20">
+                                <Polyline Points="0,100 20,80 40,85 60,60 80,55 100,40 120,45 140,30 160,20 180,25 200,10" 
+                                          Stroke="#5E81AC" 
+                                          StrokeThickness="3" 
+                                          StrokeDashArray="1,0" />
+                            </Canvas>
+                        </Grid>
                     </Border>
                 </Grid>
             </Border>
@@ -151,8 +170,8 @@
                     Grid.Column="1" 
                     Background="White" 
                     CornerRadius="8" 
-                    Margin="5" 
-                    Padding="15"
+                    Margin="8,4,4,8" 
+                    Padding="20"
                     BorderBrush="#E5E9F0"
                     BorderThickness="1">
                 <Grid>
@@ -163,17 +182,68 @@
 
                     <TextBlock Grid.Row="0" 
                                Text="Dillere Göre Dağılım" 
-                               FontSize="16" 
+                               FontSize="18" 
                                FontWeight="Bold" 
-                               Margin="0,0,0,10"/>
+                               Margin="0,0,0,15"/>
 
                     <!-- Burada gerçek grafik bileşeni olacak -->
                     <Border Grid.Row="1" 
-                            Background="#F8F9FC">
-                        <TextBlock Text="Grafik Verisi Yükleniyor..." 
-                                   VerticalAlignment="Center" 
-                                   HorizontalAlignment="Center" 
-                                   Foreground="#4C566A"/>
+                            Background="#F8F9FC"
+                            CornerRadius="6">
+                        <Grid>
+                            <TextBlock Text="Grafik Verisi Yükleniyor..." 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       Foreground="#4C566A"/>
+
+                            <!-- Sahte pasta grafiği gösterimi -->
+                            <Canvas Opacity="0.5" Margin="20">
+                                <Path Fill="#5E81AC">
+                                    <Path.Data>
+                                        <PathGeometry>
+                                            <PathFigure StartPoint="100,100">
+                                                <LineSegment Point="100,10"/>
+                                                <ArcSegment Point="175,100" Size="90,90" SweepDirection="Clockwise"/>
+                                                <LineSegment Point="100,100"/>
+                                            </PathFigure>
+                                        </PathGeometry>
+                                    </Path.Data>
+                                </Path>
+                                <Path Fill="#A3BE8C">
+                                    <Path.Data>
+                                        <PathGeometry>
+                                            <PathFigure StartPoint="100,100">
+                                                <LineSegment Point="175,100"/>
+                                                <ArcSegment Point="100,175" Size="90,90" SweepDirection="Clockwise"/>
+                                                <LineSegment Point="100,100"/>
+                                            </PathFigure>
+                                        </PathGeometry>
+                                    </Path.Data>
+                                </Path>
+                                <Path Fill="#EBCB8B">
+                                    <Path.Data>
+                                        <PathGeometry>
+                                            <PathFigure StartPoint="100,100">
+                                                <LineSegment Point="100,175"/>
+                                                <ArcSegment Point="25,100" Size="90,90" SweepDirection="Clockwise"/>
+                                                <LineSegment Point="100,100"/>
+                                            </PathFigure>
+                                        </PathGeometry>
+                                    </Path.Data>
+                                </Path>
+                                <Path Fill="#B48EAD">
+                                    <Path.Data>
+                                        <PathGeometry>
+                                            <PathFigure StartPoint="100,100">
+                                                <LineSegment Point="25,100"/>
+                                                <ArcSegment Point="100,10" Size="90,90" SweepDirection="Clockwise"/>
+                                                <LineSegment Point="100,100"/>
+                                            </PathFigure>
+                                        </PathGeometry>
+                                    </Path.Data>
+                                </Path>
+                            </Canvas>
+                        </Grid>
                     </Border>
                 </Grid>
             </Border>
@@ -183,8 +253,8 @@
                     Grid.Column="0" 
                     Background="White" 
                     CornerRadius="8" 
-                    Margin="5" 
-                    Padding="15"
+                    Margin="4,8,8,4" 
+                    Padding="20"
                     BorderBrush="#E5E9F0"
                     BorderThickness="1">
                 <Grid>
@@ -195,17 +265,28 @@
 
                     <TextBlock Grid.Row="0" 
                                Text="Kelime Türlerine Göre Dağılım" 
-                               FontSize="16" 
+                               FontSize="18" 
                                FontWeight="Bold" 
-                               Margin="0,0,0,10"/>
+                               Margin="0,0,0,15"/>
 
                     <!-- Burada gerçek grafik bileşeni olacak -->
                     <Border Grid.Row="1" 
-                            Background="#F8F9FC">
-                        <TextBlock Text="Grafik Verisi Yükleniyor..." 
-                                   VerticalAlignment="Center" 
-                                   HorizontalAlignment="Center" 
-                                   Foreground="#4C566A"/>
+                            Background="#F8F9FC"
+                            CornerRadius="6">
+                        <Grid>
+                            <TextBlock Text="Grafik Verisi Yükleniyor..." 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       Foreground="#4C566A"/>
+
+                            <!-- Sahte bar grafik gösterimi -->
+                            <Canvas Opacity="0.5" Margin="20">
+                                <Rectangle Canvas.Left="20" Canvas.Bottom="10" Width="30" Height="100" Fill="#5E81AC" />
+                                <Rectangle Canvas.Left="70" Canvas.Bottom="10" Width="30" Height="70" Fill="#A3BE8C" />
+                                <Rectangle Canvas.Left="120" Canvas.Bottom="10" Width="30" Height="50" Fill="#EBCB8B" />
+                                <Rectangle Canvas.Left="170" Canvas.Bottom="10" Width="30" Height="30" Fill="#B48EAD" />
+                            </Canvas>
+                        </Grid>
                     </Border>
                 </Grid>
             </Border>
@@ -215,8 +296,8 @@
                     Grid.Column="1" 
                     Background="White" 
                     CornerRadius="8" 
-                    Margin="5" 
-                    Padding="15"
+                    Margin="8,8,4,4" 
+                    Padding="20"
                     BorderBrush="#E5E9F0"
                     BorderThickness="1">
                 <Grid>
@@ -227,17 +308,35 @@
 
                     <TextBlock Grid.Row="0" 
                                Text="Aylık Eklenen Kelimeler" 
-                               FontSize="16" 
+                               FontSize="18" 
                                FontWeight="Bold" 
-                               Margin="0,0,0,10"/>
+                               Margin="0,0,0,15"/>
 
                     <!-- Burada gerçek grafik bileşeni olacak -->
                     <Border Grid.Row="1" 
-                            Background="#F8F9FC">
-                        <TextBlock Text="Grafik Verisi Yükleniyor..." 
-                                   VerticalAlignment="Center" 
-                                   HorizontalAlignment="Center" 
-                                   Foreground="#4C566A"/>
+                            Background="#F8F9FC"
+                            CornerRadius="6">
+                        <Grid>
+                            <TextBlock Text="Grafik Verisi Yükleniyor..." 
+                                       VerticalAlignment="Center" 
+                                       HorizontalAlignment="Center" 
+                                       Foreground="#4C566A"/>
+
+                            <!-- Sahte çizgi grafik gösterimi -->
+                            <Canvas Opacity="0.5" Margin="20">
+                                <Polyline Points="0,80 30,60 60,70 90,50 120,45 150,55 180,30" 
+                                          Stroke="#5E81AC" 
+                                          StrokeThickness="3" 
+                                          StrokeDashArray="1,0" />
+                                <Ellipse Canvas.Left="0" Canvas.Top="77" Width="6" Height="6" Fill="#5E81AC"/>
+                                <Ellipse Canvas.Left="30" Canvas.Top="57" Width="6" Height="6" Fill="#5E81AC"/>
+                                <Ellipse Canvas.Left="60" Canvas.Top="67" Width="6" Height="6" Fill="#5E81AC"/>
+                                <Ellipse Canvas.Left="90" Canvas.Top="47" Width="6" Height="6" Fill="#5E81AC"/>
+                                <Ellipse Canvas.Left="120" Canvas.Top="42" Width="6" Height="6" Fill="#5E81AC"/>
+                                <Ellipse Canvas.Left="150" Canvas.Top="52" Width="6" Height="6" Fill="#5E81AC"/>
+                                <Ellipse Canvas.Left="180" Canvas.Top="27" Width="6" Height="6" Fill="#5E81AC"/>
+                            </Canvas>
+                        </Grid>
                     </Border>
                 </Grid>
             </Border>

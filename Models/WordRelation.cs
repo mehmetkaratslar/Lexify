@@ -8,20 +8,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Lexify.Services;
 using System.Windows;
 
-namespace Lexify
+namespace Lexify.Models
 {
-    public partial class App : Application
+    public class WordRelation
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            base.OnStartup(e);
+        [Key]
+        public int RelationID { get; set; }
 
-            // DatabaseService'i başlat - veritabanı oluşturma ve başlatma işlemlerini gerçekleştirir
-            var dbService = new DatabaseService();
+        public int WordID { get; set; }
 
-            // Ana pencereyi oluştur ve göster
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-        }
+        public int RelatedWordID { get; set; }
+
+        [StringLength(20)]
+        public string RelationType { get; set; } // "Synonym" veya "Antonym"
+
+        // Foreign key relationships
+        [ForeignKey("WordID")]
+        public virtual Word Word { get; set; }
+
+        [ForeignKey("RelatedWordID")]
+        public virtual Word RelatedWord { get; set; }
     }
 }

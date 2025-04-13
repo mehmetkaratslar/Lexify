@@ -18,7 +18,7 @@ namespace Lexify.Views
     /// <summary>
     /// TestsView.xaml etkileşim mantığı
     /// </summary>
-    public partial class TestsView : Page
+    public partial class TestsView : UserControl
     {
         public TestsView()
         {

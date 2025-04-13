@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lexify.Views"
-             mc:Ignorable="d" Height="722" Width="875">
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800">
 
-    <Grid Background="#ECEFF4" Margin="10">
+    <Grid Background="#ECEFF4">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -18,94 +19,134 @@
                    Text="Yeni Kelime Ekle" 
                    FontSize="24" 
                    FontWeight="Bold" 
-                   Margin="0,0,0,20"/>
+                   Margin="20,20,20,20"/>
 
         <!-- Form Alanları -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <StackPanel Margin="0,0,10,0">
+        <ScrollViewer Grid.Row="1" 
+                      VerticalScrollBarVisibility="Auto" 
+                      HorizontalScrollBarVisibility="Disabled"
+                      Margin="20,0,20,0">
+            <StackPanel>
                 <!-- Kelime Metni -->
                 <TextBlock Text="Kelime" 
                            FontWeight="Bold" 
-                           Margin="0,0,0,5"/>
-                <TextBox Text="{Binding CurrentWord.WordText}" 
-                         Padding="10" 
-                         Margin="0,0,0,15"/>
+                           Margin="0,0,0,8"/>
+                <TextBox Text="{Binding CurrentWord.WordText, UpdateSourceTrigger=PropertyChanged}" 
+                         Padding="12" 
+                         FontSize="14"
+                         Margin="0,0,0,20"/>
 
-                <!-- Dil Seçimi -->
-                <TextBlock Text="Dil" 
-                           FontWeight="Bold" 
-                           Margin="0,0,0,5"/>
-                <ComboBox Text="{Binding CurrentWord.Language}" 
-                          Padding="10" 
-                          Margin="0,0,0,15">
-                    <ComboBoxItem Content="Türkçe"/>
-                    <ComboBoxItem Content="English"/>
-                    <ComboBoxItem Content="Deutsch"/>
-                    <ComboBoxItem Content="Français"/>
-                    <ComboBoxItem Content="Español"/>
-                </ComboBox>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
 
-                <!-- Kelime Türü -->
-                <TextBlock Text="Tür" 
-                           FontWeight="Bold" 
-                           Margin="0,0,0,5"/>
-                <ComboBox Text="{Binding CurrentWord.WordType}" 
-                          Padding="10" 
-                          Margin="0,0,0,15">
-                    <ComboBoxItem Content="İsim"/>
-                    <ComboBoxItem Content="Fiil"/>
-                    <ComboBoxItem Content="Sıfat"/>
-                    <ComboBoxItem Content="Zarf"/>
-                    <ComboBoxItem Content="Edat"/>
-                    <ComboBoxItem Content="Bağlaç"/>
-                    <ComboBoxItem Content="Adjective"/>
-                    <ComboBoxItem Content="Noun"/>
-                    <ComboBoxItem Content="Verb"/>
-                    <ComboBoxItem Content="Adverb"/>
-                </ComboBox>
+                    <!-- Dil Seçimi -->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Dil" 
+                                   FontWeight="Bold" 
+                                   Margin="0,0,0,8"/>
+                        <ComboBox Text="{Binding CurrentWord.Language}" 
+                                  Padding="12" 
+                                  FontSize="14">
+                            <ComboBoxItem Content="Türkçe"/>
+                            <ComboBoxItem Content="English"/>
+                            <ComboBoxItem Content="Deutsch"/>
+                            <ComboBoxItem Content="Français"/>
+                            <ComboBoxItem Content="Español"/>
+                        </ComboBox>
+                    </StackPanel>
 
-                <!-- Renk Seçimi -->
-                <TextBlock Text="Renk" 
-                           FontWeight="Bold" 
-                           Margin="0,0,0,5"/>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                    <Rectangle Width="30" 
-                               Height="30" 
-                               Fill="{Binding CurrentWord.ColorCode}" 
-                               Stroke="#D8DEE9" 
-                               StrokeThickness="1" 
-                               Margin="0,0,10,0"/>
-                    <ComboBox Width="150">
-                        <ComboBoxItem Content="Mavi" Tag="#5E81AC"/>
-                        <ComboBoxItem Content="Yeşil" Tag="#A3BE8C"/>
-                        <ComboBoxItem Content="Sarı" Tag="#EBCB8B"/>
-                        <ComboBoxItem Content="Mor" Tag="#B48EAD"/>
-                        <ComboBoxItem Content="Kırmızı" Tag="#BF616A"/>
-                    </ComboBox>
-                </StackPanel>
+                    <!-- Kelime Türü -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Tür" 
+                                   FontWeight="Bold" 
+                                   Margin="0,0,0,8"/>
+                        <ComboBox Text="{Binding CurrentWord.WordType}" 
+                                  Padding="12" 
+                                  FontSize="14">
+                            <ComboBoxItem Content="İsim"/>
+                            <ComboBoxItem Content="Fiil"/>
+                            <ComboBoxItem Content="Sıfat"/>
+                            <ComboBoxItem Content="Zarf"/>
+                            <ComboBoxItem Content="Edat"/>
+                            <ComboBoxItem Content="Bağlaç"/>
+                            <ComboBoxItem Content="Adjective"/>
+                            <ComboBoxItem Content="Noun"/>
+                            <ComboBoxItem Content="Verb"/>
+                            <ComboBoxItem Content="Adverb"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
 
-                <!-- Öğrenme Durumu -->
-                <TextBlock Text="Öğrenme Durumu" 
-                           FontWeight="Bold" 
-                           Margin="0,0,0,5"/>
-                <ComboBox Text="{Binding CurrentWord.LearningStatus}" 
-                          Padding="10" 
-                          Margin="0,0,0,15">
-                    <ComboBoxItem Content="Yeni"/>
-                    <ComboBoxItem Content="Öğreniliyor"/>
-                    <ComboBoxItem Content="Öğrenildi"/>
-                </ComboBox>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Renk Seçimi -->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Renk" 
+                                   FontWeight="Bold" 
+                                   Margin="0,0,0,8"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Rectangle Grid.Column="0"
+                                       Width="40" 
+                                       Height="40" 
+                                       Fill="{Binding CurrentWord.ColorCode}" 
+                                       Stroke="#D8DEE9" 
+                                       StrokeThickness="1" 
+                                       Margin="0,0,12,0"
+                                       RadiusX="4"
+                                       RadiusY="4"/>
+                            <ComboBox Grid.Column="1"
+                                      SelectedValuePath="Tag"
+                                      SelectedValue="{Binding CurrentWord.ColorCode}"
+                                      Padding="12"
+                                      FontSize="14">
+                                <ComboBoxItem Content="Mavi" Tag="#5E81AC"/>
+                                <ComboBoxItem Content="Yeşil" Tag="#A3BE8C"/>
+                                <ComboBoxItem Content="Sarı" Tag="#EBCB8B"/>
+                                <ComboBoxItem Content="Mor" Tag="#B48EAD"/>
+                                <ComboBoxItem Content="Kırmızı" Tag="#BF616A"/>
+                            </ComboBox>
+                        </Grid>
+                    </StackPanel>
+
+                    <!-- Öğrenme Durumu -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Öğrenme Durumu" 
+                                   FontWeight="Bold" 
+                                   Margin="0,0,0,8"/>
+                        <ComboBox Text="{Binding CurrentWord.LearningStatus}" 
+                                  Padding="12" 
+                                  FontSize="14">
+                            <ComboBoxItem Content="Yeni"/>
+                            <ComboBoxItem Content="Öğreniliyor"/>
+                            <ComboBoxItem Content="Öğrenildi"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
 
                 <!-- Tanımlar -->
                 <TextBlock Text="Tanımlar" 
                            FontWeight="Bold" 
-                           Margin="0,0,0,5"/>
+                           Margin="0,0,0,8"/>
 
                 <Border Background="White" 
                         BorderBrush="#D8DEE9" 
                         BorderThickness="1" 
-                        Padding="10" 
-                        Margin="0,0,0,5">
+                        Padding="12" 
+                        Margin="0,0,0,8"
+                        CornerRadius="4">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -113,25 +154,39 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox Grid.Column="0" 
-                                 Text="Tanım giriniz..." 
-                                 BorderThickness="0"/>
+                                 Text="{Binding NewDefinitionText, UpdateSourceTrigger=PropertyChanged}" 
+                                 BorderThickness="0"
+                                 Padding="0"
+                                 FontSize="14"
+                                 VerticalAlignment="Center"
+                                 Background="Transparent"/>
 
                         <Button Grid.Column="1" 
                                 Content="Ekle" 
-                                Padding="10,5" 
+                                Padding="15,8" 
                                 Background="#5E81AC" 
                                 Foreground="White" 
-                                BorderThickness="0"/>
+                                BorderThickness="0"
+                                Command="{Binding AddDefinitionCommand}"/>
                     </Grid>
                 </Border>
 
                 <ItemsControl ItemsSource="{Binding Definitions}" 
-                              Margin="0,0,0,15">
+                              Margin="0,0,0,20"
+                              MaxHeight="200">
+                    <ItemsControl.Template>
+                        <ControlTemplate TargetType="ItemsControl">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Background="#F8F9FC" 
-                                    Margin="0,2" 
-                                    Padding="10">
+                                    CornerRadius="4" 
+                                    Margin="0,4" 
+                                    Padding="12">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
@@ -146,7 +201,10 @@
                                             Content="Sil" 
                                             Foreground="#BF616A" 
                                             Background="Transparent" 
-                                            BorderThickness="0"/>
+                                            BorderThickness="0"
+                                            Command="{Binding DataContext.RemoveDefinitionCommand, 
+                                                        RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding}"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -156,13 +214,14 @@
                 <!-- Örnek Cümleler -->
                 <TextBlock Text="Örnek Cümleler" 
                            FontWeight="Bold" 
-                           Margin="0,0,0,5"/>
+                           Margin="0,0,0,8"/>
 
                 <Border Background="White" 
                         BorderBrush="#D8DEE9" 
                         BorderThickness="1" 
-                        Padding="10" 
-                        Margin="0,0,0,5">
+                        Padding="12" 
+                        Margin="0,0,0,8"
+                        CornerRadius="4">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -170,25 +229,39 @@
                         </Grid.ColumnDefinitions>
 
                         <TextBox Grid.Column="0" 
-                                 Text="Örnek cümle giriniz..." 
-                                 BorderThickness="0"/>
+                                 Text="{Binding NewExampleText, UpdateSourceTrigger=PropertyChanged}" 
+                                 BorderThickness="0"
+                                 Padding="0"
+                                 FontSize="14"
+                                 VerticalAlignment="Center"
+                                 Background="Transparent"/>
 
                         <Button Grid.Column="1" 
                                 Content="Ekle" 
-                                Padding="10,5" 
+                                Padding="15,8" 
                                 Background="#5E81AC" 
                                 Foreground="White" 
-                                BorderThickness="0"/>
+                                BorderThickness="0"
+                                Command="{Binding AddExampleCommand}"/>
                     </Grid>
                 </Border>
 
                 <ItemsControl ItemsSource="{Binding Examples}" 
-                              Margin="0,0,0,15">
+                              Margin="0,0,0,20"
+                              MaxHeight="200">
+                    <ItemsControl.Template>
+                        <ControlTemplate TargetType="ItemsControl">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <ItemsPresenter />
+                            </ScrollViewer>
+                        </ControlTemplate>
+                    </ItemsControl.Template>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Background="#F8F9FC" 
-                                    Margin="0,2" 
-                                    Padding="10">
+                                    CornerRadius="4" 
+                                    Margin="0,4" 
+                                    Padding="12">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
@@ -197,37 +270,63 @@
 
                                     <TextBlock Grid.Column="0" 
                                                Text="{Binding ExampleText}" 
-                                               TextWrapping="Wrap"/>
+                                               TextWrapping="Wrap"
+                                               FontStyle="Italic"/>
 
                                     <Button Grid.Column="1" 
                                             Content="Sil" 
                                             Foreground="#BF616A" 
                                             Background="Transparent" 
-                                            BorderThickness="0"/>
+                                            BorderThickness="0"
+                                            Command="{Binding DataContext.RemoveExampleCommand, 
+                                                        RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding}"/>
                                 </Grid>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
+
+                <!-- İlişkili Kelimeler (Gelecek sürümde eklenecek) -->
+                <TextBlock Text="İlişkili Kelimeler (Eş/Zıt Anlamlılar)" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,8"/>
+                <Border Background="#F8F9FC" 
+                        BorderBrush="#D8DEE9" 
+                        BorderThickness="1" 
+                        Padding="12" 
+                        CornerRadius="4"
+                        Margin="0,0,0,20">
+                    <TextBlock Text="Bu özellik yakında eklenecektir." 
+                               Foreground="#4C566A"/>
+                </Border>
             </StackPanel>
         </ScrollViewer>
 
         <!-- Kaydet Butonu -->
-        <StackPanel Grid.Row="2" 
-                    Orientation="Horizontal" 
-                    HorizontalAlignment="Right" 
-                    Margin="0,10,0,0">
-            <Button Content="İptal" 
-                    Padding="20,10" 
+        <Grid Grid.Row="2" 
+              Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="1" 
+                    Content="İptal" 
+                    Padding="20,12" 
                     Margin="0,0,10,0" 
                     Background="#E5E9F0" 
-                    BorderThickness="0"/>
+                    BorderThickness="0"
+                    Command="{Binding CancelCommand}"/>
 
-            <Button Content="Kaydet" 
-                    Padding="20,10" 
+            <Button Grid.Column="2" 
+                    Content="Kaydet" 
+                    Padding="20,12" 
                     Background="#5E81AC" 
                     Foreground="White" 
-                    BorderThickness="0"/>
-        </StackPanel>
+                    BorderThickness="0"
+                    Command="{Binding SaveCommand}"/>
+        </Grid>
     </Grid>
 </UserControl>

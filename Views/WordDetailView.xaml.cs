@@ -18,7 +18,7 @@ namespace Lexify.Views
     /// <summary>
     /// WordDetailView.xaml etkileşim mantığı
     /// </summary>
-    public partial class WordDetailView : Page
+    public partial class WordDetailView : UserControl
     {
         public WordDetailView()
         {

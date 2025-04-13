@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Lexify.Views"
-             mc:Ignorable="d" Height="731" Width="905">
+             mc:Ignorable="d">
 
-    <Grid Background="#ECEFF4" Margin="10">
+    <Grid Background="#ECEFF4" Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -22,89 +22,125 @@
 
             <Button Grid.Column="0" 
                     Content="Geri" 
-                    Padding="15,8" 
+                    Padding="15,10" 
                     Margin="0,0,15,0" 
                     Background="#E5E9F0" 
-                    BorderThickness="0"/>
+                    BorderThickness="0"
+                    FontSize="14"/>
 
             <TextBlock Grid.Column="1" 
                        Text="Kelime Detayları" 
                        FontSize="24" 
-                       FontWeight="Bold"/>
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"/>
 
             <StackPanel Grid.Column="2" Orientation="Horizontal">
                 <Button Content="Düzenle" 
-                        Padding="15,8" 
+                        Padding="15,10" 
                         Margin="0,0,10,0" 
                         Background="#EBCB8B" 
                         Foreground="White" 
-                        BorderThickness="0"/>
+                        BorderThickness="0"
+                        FontSize="14"/>
 
                 <Button Content="Sil" 
-                        Padding="15,8" 
+                        Padding="15,10" 
                         Background="#BF616A" 
                         Foreground="White" 
-                        BorderThickness="0"/>
+                        BorderThickness="0"
+                        FontSize="14"/>
             </StackPanel>
         </Grid>
 
         <!-- Kelime Detayları -->
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer Grid.Row="1" 
+                      VerticalScrollBarVisibility="Auto" 
+                      HorizontalScrollBarVisibility="Disabled">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*" MinWidth="300"/>
+                    <ColumnDefinition Width="1*" MinWidth="200"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Sol Panel - Ana Bilgiler -->
                 <Border Grid.Column="0" 
                         Background="White" 
                         CornerRadius="8" 
-                        Margin="0,0,5,0" 
-                        Padding="20"
+                        Margin="0,0,10,0" 
+                        Padding="25"
                         BorderBrush="#E5E9F0"
                         BorderThickness="1">
                     <StackPanel>
                         <!-- Kelime Başlığı -->
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                            <TextBlock Text="{Binding Word.WordText}" 
-                                       FontSize="32" 
-                                       FontWeight="Bold"/>
+                        <Grid Margin="0,0,0,15">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                            <Border Background="{Binding Word.ColorCode}" 
-                                    Width="10" 
-                                    Height="32" 
-                                    CornerRadius="5" 
-                                    Margin="15,0,0,0"/>
-                        </StackPanel>
+                            <TextBlock Grid.Column="0"
+                                       Text="{Binding Word.WordText}" 
+                                       FontSize="32" 
+                                       FontWeight="Bold"
+                                       TextWrapping="Wrap"/>
+
+                            <Border Grid.Column="1"
+                                    Background="{Binding Word.ColorCode}" 
+                                    Width="12" 
+                                    Height="40" 
+                                    CornerRadius="6" 
+                                    Margin="15,0,0,0"
+                                    VerticalAlignment="Center"/>
+                        </Grid>
 
                         <!-- Kelime Bilgileri -->
-                        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                            <TextBlock Text="{Binding Word.WordType}" 
-                                       FontStyle="Italic" 
-                                       Foreground="#4C566A" 
-                                       Margin="0,0,15,0"/>
+                        <Grid Margin="0,0,0,25">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="{Binding Word.Language}" 
-                                       FontStyle="Italic" 
-                                       Foreground="#4C566A"/>
-                        </StackPanel>
+                            <Border Grid.Column="0"
+                                    Background="#F0F1F4" 
+                                    CornerRadius="4" 
+                                    Padding="10,5" 
+                                    Margin="0,0,10,0">
+                                <TextBlock Text="{Binding Word.WordType}" 
+                                           FontSize="14"
+                                           FontWeight="SemiBold"
+                                           Foreground="#4C566A"/>
+                            </Border>
+
+                            <Border Grid.Column="1"
+                                    Background="#F0F1F4" 
+                                    CornerRadius="4" 
+                                    Padding="10,5">
+                                <TextBlock Text="{Binding Word.Language}" 
+                                           FontSize="14"
+                                           FontWeight="SemiBold"
+                                           Foreground="#4C566A"/>
+                            </Border>
+                        </Grid>
 
                         <!-- Tanımlar -->
                         <TextBlock Text="Tanımlar" 
-                                   FontSize="18" 
+                                   FontSize="20" 
                                    FontWeight="Bold" 
-                                   Margin="0,0,0,10"/>
+                                   Margin="0,0,0,15"/>
 
-                        <ItemsControl ItemsSource="{Binding Word.Definitions}" Margin="0,0,0,20">
+                        <ItemsControl ItemsSource="{Binding Word.Definitions}" Margin="0,0,0,25">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Background="#F8F9FC" 
-                                            CornerRadius="5" 
-                                            Margin="0,0,0,5" 
-                                            Padding="10">
+                                            CornerRadius="6" 
+                                            Margin="0,0,0,8" 
+                                            Padding="15"
+                                            BorderBrush="#E5E9F0"
+                                            BorderThickness="1">
                                         <TextBlock Text="{Binding DefinitionText}" 
-                                                   TextWrapping="Wrap"/>
+                                                   TextWrapping="Wrap"
+                                                   FontSize="15"
+                                                   LineHeight="24"/>
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -112,20 +148,25 @@
 
                         <!-- Örnekler -->
                         <TextBlock Text="Örnek Cümleler" 
-                                   FontSize="18" 
+                                   FontSize="20" 
                                    FontWeight="Bold" 
-                                   Margin="0,0,0,10"/>
+                                   Margin="0,0,0,15"
+                                   Visibility="{Binding Word.Examples.Count, Converter={StaticResource NullToVisibilityConverter}}"/>
 
                         <ItemsControl ItemsSource="{Binding Word.Examples}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Background="#F8F9FC" 
-                                            CornerRadius="5" 
-                                            Margin="0,0,0,5" 
-                                            Padding="10">
+                                            CornerRadius="6" 
+                                            Margin="0,0,0,8" 
+                                            Padding="15"
+                                            BorderBrush="#E5E9F0"
+                                            BorderThickness="1">
                                         <TextBlock Text="{Binding ExampleText}" 
                                                    TextWrapping="Wrap" 
-                                                   FontStyle="Italic"/>
+                                                   FontStyle="Italic"
+                                                   FontSize="15"
+                                                   LineHeight="24"/>
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -137,46 +178,91 @@
                 <Border Grid.Column="1" 
                         Background="White" 
                         CornerRadius="8" 
-                        Margin="5,0,0,0" 
-                        Padding="20"
+                        Margin="10,0,0,0" 
+                        Padding="25"
                         BorderBrush="#E5E9F0"
                         BorderThickness="1">
                     <StackPanel>
                         <!-- Öğrenme Durumu -->
                         <TextBlock Text="Öğrenme Durumu" 
-                                   FontSize="16" 
+                                   FontSize="18" 
                                    FontWeight="Bold" 
-                                   Margin="0,0,0,10"/>
+                                   Margin="0,0,0,15"/>
 
                         <Border Background="#F8F9FC" 
-                                CornerRadius="5" 
-                                Padding="10" 
-                                Margin="0,0,0,20">
-                            <TextBlock Text="{Binding Word.LearningStatus}" 
-                                       FontWeight="SemiBold"/>
+                                CornerRadius="6" 
+                                Padding="15" 
+                                Margin="0,0,0,25"
+                                BorderBrush="#E5E9F0"
+                                BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0"
+                                           Text="{Binding Word.LearningStatus}" 
+                                           FontWeight="SemiBold"
+                                           FontSize="15"/>
+
+                                <!-- Status indicator -->
+                                <Border Grid.Column="1"
+                                        Width="10" 
+                                        Height="10" 
+                                        CornerRadius="5"
+                                        Margin="10,0,0,0"
+                                        VerticalAlignment="Center">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background" Value="#EBCB8B"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Word.LearningStatus}" Value="Öğrenildi">
+                                                    <Setter Property="Background" Value="#A3BE8C"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Word.LearningStatus}" Value="Yeni">
+                                                    <Setter Property="Background" Value="#B48EAD"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                </Border>
+                            </Grid>
                         </Border>
 
                         <!-- Eş/Zıt Anlamlılar -->
                         <TextBlock Text="İlişkili Kelimeler" 
-                                   FontSize="16" 
+                                   FontSize="18" 
                                    FontWeight="Bold" 
-                                   Margin="0,0,0,10"/>
+                                   Margin="0,0,0,15"/>
 
-                        <ItemsControl ItemsSource="{Binding Word.RelatedWordsFrom}" Margin="0,0,0,20">
+                        <ItemsControl ItemsSource="{Binding Word.RelatedWordsFrom}" 
+                                      Margin="0,0,0,25">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Background="#F8F9FC" 
-                                            CornerRadius="5" 
-                                            Margin="0,0,0,5" 
-                                            Padding="10">
-                                        <StackPanel>
-                                            <TextBlock Text="{Binding RelationType}" 
-                                                       FontSize="12" 
-                                                       Foreground="#4C566A"/>
+                                            CornerRadius="6" 
+                                            Margin="0,0,0,8" 
+                                            Padding="15"
+                                            BorderBrush="#E5E9F0"
+                                            BorderThickness="1">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
 
-                                            <TextBlock Text="{Binding RelatedWord.WordText}" 
-                                                       FontWeight="SemiBold"/>
-                                        </StackPanel>
+                                            <TextBlock Grid.Row="0"
+                                                       Text="{Binding RelationType}" 
+                                                       FontSize="13" 
+                                                       Foreground="#4C566A"
+                                                       Margin="0,0,0,5"/>
+
+                                            <TextBlock Grid.Row="1"
+                                                       Text="{Binding RelatedWord.WordText}" 
+                                                       FontWeight="SemiBold"
+                                                       FontSize="15"/>
+                                        </Grid>
                                     </Border>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -184,15 +270,28 @@
 
                         <!-- Ekleme Tarihi -->
                         <TextBlock Text="Ekleme Tarihi" 
-                                   FontSize="16" 
+                                   FontSize="18" 
                                    FontWeight="Bold" 
-                                   Margin="0,0,0,10"/>
+                                   Margin="0,0,0,15"/>
 
                         <Border Background="#F8F9FC" 
-                                CornerRadius="5" 
-                                Padding="10">
-                            <TextBlock Text="{Binding Word.DateAdded, StringFormat=dd.MM.yyyy}"/>
+                                CornerRadius="6" 
+                                Padding="15"
+                                BorderBrush="#E5E9F0"
+                                BorderThickness="1">
+                            <TextBlock Text="{Binding Word.DateAdded, StringFormat=dd.MM.yyyy}"
+                                       FontSize="15"/>
                         </Border>
+
+                        <!-- Test butonu -->
+                        <Button Content="Bu Kelimeyi Test Et" 
+                                Margin="0,25,0,0" 
+                                Padding="15,10" 
+                                Background="#5E81AC" 
+                                Foreground="White" 
+                                BorderThickness="0"
+                                FontSize="14"
+                                HorizontalAlignment="Stretch"/>
                     </StackPanel>
                 </Border>
             </Grid>
